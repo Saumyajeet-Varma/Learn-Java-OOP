@@ -1,2 +1,5 @@
 # Java Output files
 *.class
+
+# vscode
+.vscode/

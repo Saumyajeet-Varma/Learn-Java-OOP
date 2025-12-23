@@ -30,7 +30,13 @@ This Repository only contains **Java OOP**.
     - [Public Method vs Static Method](#public-method-vs-static-method)
 - [Constructor](#constructor)
     - [Constructor Parameters](#contructor-parameters)
-    - [`this` Keyword](#this-keyword) 
+    - [`this` Keyword](#this-keyword)
+- [Modifiers](#modifiers)
+    - [Access Modifiers](#access-modifiers)
+    - [Non-Access Modifiers](#non-access-modifiers)
+- [Encapsulation](#encapsulation)
+    - [Get and Set](#get-and-set)
+    - [Why Encapsulation ?](#why-encapsulation-)
 
 
 
@@ -314,3 +320,192 @@ public class Main {
     }
 }
 ```
+
+
+
+
+## Modifiers
+
+We divide modifiers into two groups:
+- **Access Modifiers** - controls the access level
+- **Non-Access Modifiers** - do not control access level, but provides other functionality
+
+### Access Modifiers
+
+#### Public
+
+A `public` method is accessible from any class.
+
+```java
+public class Main {
+
+    public void myPublicMethod() {
+        System.out.println("Public methods are accessible from any class");
+    }
+
+    public static void main(String[] args) {
+        Main obj = new Main();
+        obj.myPublicMethod();
+    }
+}
+```
+
+#### Private
+
+A `private` method is accessible only within the same class.
+
+```java
+public class Main {
+
+    private void myPrivateMethod() {
+        System.out.println("Private methods are accessible only within the same class");
+    }
+
+    public static void main(String[] args) {
+        Main obj = new Main();
+        obj.myPrivateMethod();
+    }
+}
+```
+
+#### Access Modifiers List
+
+For **classes**, you can use either `public` or default:
+
+| Modifier | Description |
+|---------------|-------------|
+| `public` | The class is accessible by any other class |
+| default | The class is only accessible by classes in the same package. This is used when you don't specify a modifier. We will learn more about it |
+
+For **attributes**, **methods** and **constructors**, you can use the one of the following:
+
+| Modifier | Description |
+|--------|-------------|
+| `public` | The code is accessible for all classes |
+| `private` | The code is only accessible within the declared class |
+| default | The code is only accessible in the same package. This is used when you don't specify a modifier. You will learn more about packages in the Packages chapter |
+| `protected` | The code is accessible in the same package and subclasses. You will learn more about subclasses and superclasses in the Inheritance |
+
+### Non-Access Modifiers
+
+Non-access modifiers do not control visibility (like `public` or `private`), but instead add other features to classes, methods, and attributes.
+
+The most commonly used non-access modifiers are `final`, `static`, and `abstract`.
+
+#### Final
+
+If you don't want the ability to override existing attribute values, declare attributes as `final`.
+
+```java
+public class Main {
+    
+    final int x = 10;
+    final double PI = 3.14;
+
+    public static void main(String[] args) {
+        Main myObj = new Main();
+        myObj.x = 50;
+        myObj.PI = 25; 
+        System.out.println(myObj.x);
+    }
+}
+```
+
+#### Static
+
+A `static` method belongs to the class, not to any specific object. This means you can call it without creating an object of the class.
+
+```java
+public class Main {
+
+    static void myStaticMethod() {
+        System.out.println("Static methods can be called without creating objects");
+    }
+
+  
+    public static void main(String[] args) {
+        myStaticMethod();
+        Main.myStaticMethod();
+    }
+}
+```
+
+> A `static` method belongs to the class itself. You can call it without creating an object, but it cannot use variables or methods that belong to an object.
+
+#### Abstract
+
+An `abstract` method belongs to an `abstract` class, and it does not have a body. The body is provided by the subclass.
+
+```java
+abstract class Main {
+    public String fname = "John";
+    public int age = 24;
+    public abstract void study(); 
+}
+
+class Student extends Main {
+    
+    public int graduationYear = 2018;
+    
+    public void study() {
+        System.out.println("Studying all day long");
+    }
+}
+```
+
+#### Non-Access Modifiers List
+
+For **classes**, you can use either `final` or `abstract`:
+
+| Modifier | Description |
+|---------------|-------------|
+| `final` | The class cannot be inherited by other classes |
+| `abstract` | The class cannot be used to create objects (To access an abstract class, it must be inherited from another class). |
+
+For **attributes** and **methods**, you can use the one of the following:
+
+| Modifier | Description |
+|---------|-------------|
+| `final` | Attributes and methods cannot be overridden or modified |
+| `static` | Attributes and methods belong to the class, not to objects. This means all objects share the same `static` attribute, and `static` methods can be called without creating objects. |
+| `abstract` | Can only be used in an abstract class, and only on methods. The method does not have a body (e.g., `abstract void run();`). The body is provided by the subclass. You will learn more about inheritance and abstraction in the Inheritance and Abstraction chapters. |
+| `transient` | Attributes are skipped when serializing the object containing them |
+| `synchronized` | Methods can only be accessed by one thread at a time |
+| `volatile` | The value of an attribute is not cached thread-locally and is always read from main memory |
+
+
+
+
+## Encapsulation
+
+The meaning of Encapsulation, is to make sure that "sensitive" data is hidden from users. To achieve this, you must:
+- declare class variables/attributes as `private`
+- provide public get and set methods to access and update the value of a `private` variable
+
+### Get and Set
+
+You learned from the previous chapter that `private` variables can only be accessed within the same class (an outside class has no access to it). However, it is possible to access them if we provide public get and set methods.
+
+The `get` method returns the variable value, and the `set` method sets the value.
+
+```java
+public class Person {
+
+    private String name; 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String newName) {
+        this.name = newName;
+    }
+}
+```
+
+### Why Encapsulation ?
+
+- Better control of class attributes and methods
+- Class attributes can be made **read-only** (if you only use the `get` method), or **write-only** (if you only use the `set` method)
+- Flexible: the programmer can change one part of the code without affecting other parts
+- Increased security of data
