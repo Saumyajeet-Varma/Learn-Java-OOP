@@ -28,6 +28,9 @@ This Repository only contains **Java OOP**.
 - [Class Methods](#class-methods)
     - [Access Methods With an Object](#access-methods-with-an-object) 
     - [Public Method vs Static Method](#public-method-vs-static-method)
+- [Constructor](#constructor)
+    - [Constructor Parameters](#contructor-parameters)
+    - [`this` Keyword](#this-keyword) 
 
 
 
@@ -208,3 +211,106 @@ public class Main {
 | Object required               | Yes (if non-static)   | No                         |
 | Can access non-static members | Yes                   | No                         |
 | Example                       | `obj.method()`        | `Class.method()`           |
+
+
+
+
+## Constructor
+
+A constructor in Java is a special method that is used to initialize objects.
+
+The constructor is called when an object of a class is created.
+
+```java
+public class Main {
+
+    int x;  
+
+    public Main() {
+        x = 5;
+    }
+
+    public static void main(String[] args) {
+        Main myObj = new Main();
+        System.out.println(myObj.x);
+    }
+}
+```
+
+> Note that the constructor name must match the class name, and it cannot have a return type 
+
+### Contructor Parameters
+
+Constructors can also take parameters, which is used to initialize attributes.
+
+```java
+public class Main {
+    
+    int x;
+
+    public Main(int y) {
+        x = y;
+    }
+
+    public static void main(String[] args) {
+        Main myObj = new Main(5);
+        System.out.println(myObj.x);
+    }
+}
+```
+
+### `this` Keyword
+
+The `this` keyword in Java refers to the current object in a method or constructor.
+
+The `this` keyword is often used to avoid confusion when class attributes have the same name as method or constructor parameters.
+
+```java
+public class Main {
+    
+    int x;
+
+    public Main(int x) {
+        this.x = x;
+    }
+
+    public static void main(String[] args) {
+        Main myObj = new Main(5);
+        System.out.println("Value of x = " + myObj.x);
+    }
+}
+```
+
+> Think of `this.x = x;` as: "`this.x` (the class variable) gets the value of x (the parameter)." Without `this`, the code above `x = x`; would set the parameter `x` equal to itself, and the class variable would stay uninitialized (0).
+
+You can also use `this()` to call another constructor in the same class.
+
+```java
+public class Main {
+
+    int modelYear;
+    String modelName;
+
+    public Main(String modelName) {
+        this(2020, modelName);
+    }
+
+    public Main(int modelYear, String modelName) {
+        this.modelYear = modelYear;
+        this.modelName = modelName;
+    }
+
+    public void printInfo() {
+        System.out.println(modelYear + " " + modelName);
+    }
+
+    public static void main(String[] args) {
+
+        Main car1 = new Main("Corvette");
+        Main car2 = new Main(1969, "Mustang");
+
+        car1.printInfo();
+        car2.printInfo();
+    }
+}
+```
