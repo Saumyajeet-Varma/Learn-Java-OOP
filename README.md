@@ -37,7 +37,11 @@ This Repository only contains **Java OOP**.
 - [Encapsulation](#encapsulation)
     - [Get and Set](#get-and-set)
     - [Why Encapsulation ?](#why-encapsulation-)
-
+- [Java Packages and API](#java-packages-and-api)
+    - [Built-in Packages](#built-in-packages)
+    - [User-defined Packages](#user-defined-packages)
+- [Inheritance](#inheritance)
+- [Polymorphism](#polymorphism)
 
 
 
@@ -509,3 +513,168 @@ public class Person {
 - Class attributes can be made **read-only** (if you only use the `get` method), or **write-only** (if you only use the `set` method)
 - Flexible: the programmer can change one part of the code without affecting other parts
 - Increased security of data
+
+
+
+
+## Java Packages and API
+
+A package in Java is used to group related classes. Think of it as **a folder in a file directory**. We use packages to avoid name conflicts, and to write a better maintainable code. Packages are divided into two categories:
+
+- Built-in Packages (packages from the Java API)
+- User-defined Packages (create your own packages)
+
+### Built-in Packages
+
+The Java API is a library of prewritten classes, that are free to use, included in the Java Development Environment.
+
+The library contains components for managing input, database programming, and much much more. The complete list can be found at Oracles website: [https://docs.oracle.com/javase/8/docs/api/](https://docs.oracle.com/javase/8/docs/api/)
+
+To use a class or a package from the library, you need to use the `import` keyword
+
+#### Syntax:
+
+```java
+import package.name.ClassName;   // Import a single class
+import package.name.*;   // Import the whole package
+```
+
+#### Example:
+
+```java
+import java.util.Scanner;
+
+class Main {
+    
+    public static void main(String[] args) {
+        
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Enter username");
+
+        String userName = myObj.nextLine();
+        System.out.println("Username is: " + userName);
+    }
+}
+```
+
+> In the example above, `java.util` is a package, while `Scanner` is a class of the `java.util` package.
+
+```java
+import java.util.*;
+```
+
+> The above example will import all the classes in the `java.util` package
+
+### User-defined Packages
+
+To create your own package, you need to understand that Java uses a file system directory to store them. Just like folders on your computer
+
+```md
+└── root
+  └── mypack
+    └── MyPackageClass.java
+```
+
+To create a package, use the `package` keyword
+
+##### MyPackageClass.java
+```java
+package mypack;
+
+class MyPackageClass {
+    public static void main(String[] args) {
+        System.out.println("This is my package!");
+    }
+}
+```
+
+##### Save the file as MyPackageClass.java, and compile it
+
+```bash
+C:\Users\Your Name>javac MyPackageClass.java
+```
+
+##### Then compile the package
+
+```bash
+C:\Users\Your Name>javac -d . MyPackageClass.java
+```
+
+> The `-d` keyword specifies the destination for where to save the class file. You can use any directory name, like c:/user (windows), or, if you want to keep the package within the same directory, you can use the dot sign "`.`", like in the example above.
+
+##### To run the MyPackageClass.java file, write the following
+
+```bash
+C:\Users\Your Name>java mypack.MyPackageClass
+```
+
+##### The output will be
+
+```bash
+This is my package!
+```
+
+> **Note**: The package name should be written in lower case to avoid conflict with class names.
+
+
+
+
+## Inheritance
+
+In Java, it is possible to inherit attributes and methods from one class to another. We group the "inheritance concept" into two categories:
+
+- **subclass** (child) - the class that inherits from another class
+- **superclass** (parent) - the class being inherited from
+
+To inherit from a class, use the `extends` keyword
+
+```java
+class Vehicle {
+    
+    protected String brand = "Ford";        // Vehicle attribute
+    
+    public void honk() {                    // Vehicle method
+        System.out.println("Tuut, tuut!");
+    }
+}
+
+class Car extends Vehicle {
+    
+    private String modelName = "Mustang";    // Car attribute
+    
+    public static void main(String[] args) {
+        Car myCar = new Car();
+        myCar.honk();
+        System.out.println(myCar.brand + " " + myCar.modelName);
+    }
+}
+```
+
+
+
+
+# Polymorphism
+
+Polymorphism means "many forms", and it occurs when we have many classes that are related to each other by inheritance.
+
+Inheritance lets us inherit attributes and methods from another class. Polymorphism uses those methods to perform different tasks. This allows us to perform a single action in different ways.
+
+```java
+class Animal {
+    public void animalSound() {
+        System.out.println("The animal makes a sound");
+    }
+}
+
+class Pig extends Animal {
+    public void animalSound() {
+        System.out.println("The pig says: wee wee");
+    }
+}
+
+class Dog extends Animal {
+    public void animalSound() {
+        System.out.println("The dog says: bow wow");
+    }
+}
+```
