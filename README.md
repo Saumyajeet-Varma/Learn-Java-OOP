@@ -42,6 +42,16 @@ This Repository only contains **Java OOP**.
     - [User-defined Packages](#user-defined-packages)
 - [Inheritance](#inheritance)
 - [Polymorphism](#polymorphism)
+- [`super` Keyword](#super-keyword)
+    - [Access Parent Methods](#access-parent-methods)
+    - [Access Parent Attributes](#access-parent-attributes)
+    - [Call Parent Constructor](#call-parent-constructor)
+- [Inner Class](#inner-class)
+    - [Private Inner Class](#private-inner-class)
+    - [Static Inner Class](#static-inner-class)
+    - [Access Outer Class From Inner Class](#access-outer-class-from-inner-class)
+<!-- - [Abstraction](#abstraction) -->
+
 
 
 
@@ -678,3 +688,202 @@ class Dog extends Animal {
     }
 }
 ```
+
+
+
+
+## `super` Keyword
+
+In Java, the `super` keyword is used to refer to the **parent class** of a subclass
+
+The most common use of the super keyword is to eliminate the confusion between superclasses and subclasses that have methods with the same name. 
+
+It can be used in two main ways:
+- To access attributes and methods from the parent class
+- To call the parent class constructor
+
+### Access Parent Methods
+
+If a subclass has a method with the same name as one in its parent class, you can use `super` to call the parent version
+
+```java
+class Animal {
+    public void animalSound() {
+        System.out.println("The animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    public void animalSound() {
+        super.animalSound(); // Call the parent method
+        System.out.println("The dog says: bow wow");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        myDog.animalSound();
+    }
+}
+```
+
+### Access Parent Attributes
+
+You can also use `super` to access an attribute from the parent class if they have an attribute with the same name
+
+```java
+class Animal {
+    String type = "Animal";
+}
+
+class Dog extends Animal {
+    
+    String type = "Dog";
+
+    public void printType() {
+        System.out.println(super.type); // Access parent attribute
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        myDog.printType();
+    }
+}
+```
+
+### Call Parent Constructor
+
+Use `super()` to call the constructor of the parent class
+
+```java
+class Animal {
+    Animal() {
+        System.out.println("Animal is created");
+    }
+}
+
+class Dog extends Animal {
+    Dog() {
+        super(); // Call parent constructor
+        System.out.println("Dog is created");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+    }
+}
+```
+
+
+
+
+## Inner Class
+
+In Java, it is also possible to nest classes (a class within a class). The purpose of nested classes is to group classes that belong together, which makes your code more readable and maintainable
+
+```java
+class OuterClass {
+   
+    int x = 10;
+
+    class InnerClass {
+        int y = 21;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        OuterClass myOuter = new OuterClass();
+        OuterClass.InnerClass myInner = myOuter.new InnerClass();
+        System.out.println(myInner.y + myOuter.x);
+    }
+}
+
+// Outputs 31 (21 + 10)
+```
+
+### Private Inner Class
+
+Unlike a "regular" class, an inner class can be `private` or `protected`. If you don't want outside objects to access the inner class, declare the class as `private`
+
+```java
+class OuterClass {
+  
+    int x = 10;
+
+    private class InnerClass {
+        int y = 21;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        OuterClass myOuter = new OuterClass();
+        OuterClass.InnerClass myInner = myOuter.new InnerClass();
+        System.out.println(myInner.y + myOuter.x);
+    }
+}
+```
+
+> If you try to access a private inner class from an outside class, an error occurs: `Main.java:13: error: OuterClass.InnerClass has private access in OuterClass`
+
+### Static Inner Class
+
+An inner class can also be `static`, which means that you can access it without creating an object of the outer class
+
+```java
+class OuterClass {
+  
+    int x = 10;
+
+    static class InnerClass {
+        int y = 21;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        OuterClass.InnerClass myInner = new OuterClass.InnerClass();
+        System.out.println(myInner.y);
+    }
+}
+
+// Outputs 21
+```
+
+### Access Outer Class From Inner Class
+
+One advantage of inner classes, is that they can access attributes and methods of the outer class
+
+```java
+class OuterClass {
+  
+    int x = 10;
+
+    class InnerClass {
+        public int myInnerMethod() {
+            return x;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        OuterClass myOuter = new OuterClass();
+        OuterClass.InnerClass myInner = myOuter.new InnerClass();
+        System.out.println(myInner.myInnerMethod());
+    }
+}
+
+// Outputs 10
+```
+
+
+
+
+<!-- # Abstraction -->
