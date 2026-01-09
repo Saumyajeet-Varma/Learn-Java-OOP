@@ -8,8 +8,8 @@ This Repository only contains **Java OOP**.
 | Topics      | Modules        | Links |
 |------------|----------------|-------|
 | Java Basics | Modules 1–10   | [Click](https://github.com/Saumyajeet-Varma/Learn-Java) |
-| Java OOP    | Modules 11–20  | [Click](https://github.com/Saumyajeet-Varma/Learn-Java-OOP) |
-| Java DS     | Modules 21–30  | [Click](https://github.com/Saumyajeet-Varma/Learn-Java-DataStructures) |
+| Java OOP    | Modules 11–14  | [Click](https://github.com/Saumyajeet-Varma/Learn-Java-OOP) |
+| Java DS     | Modules 0-0  | [Click](https://github.com/Saumyajeet-Varma/Learn-Java-DataStructures) |
 
 
 
