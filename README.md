@@ -50,7 +50,11 @@ This Repository only contains **Java OOP**.
     - [Private Inner Class](#private-inner-class)
     - [Static Inner Class](#static-inner-class)
     - [Access Outer Class From Inner Class](#access-outer-class-from-inner-class)
-<!-- - [Abstraction](#abstraction) -->
+- [Abstraction](#abstraction)
+- [Interface](#interface)
+    - [Multiple Interface](#multiple-interfaces)
+- [Anonymous Class](#anonymous-class)
+    - [Anonymous Class from an Interface](#anonymous-class-from-an-interface)
 
 
 
@@ -886,4 +890,141 @@ public class Main {
 
 
 
-<!-- # Abstraction -->
+# Abstraction
+
+**Data abstraction** is the process of hiding certain details and showing only essential information to the user.
+Abstraction can be achieved with either **abstract classes** or **interfaces**
+
+The `abstract` keyword is a non-access modifier, used for classes and methods:
+- **Abstract class**: is a restricted class that cannot be used to create objects (to access it, it must be inherited from another class).
+- **Abstract method**: can only be used in an abstract class, and it does not have a body. The body is provided by the subclass (inherited from).
+
+An abstract class can have both abstract and regular methods:
+
+```java
+abstract class Animal {
+    
+    public abstract void animalSound();
+    
+    public void sleep() {
+        System.out.println("Zzz");
+    }
+}
+```
+
+To access the abstract class, it must be inherited from another class: [Code](./src/module14/Abstraction.java)
+
+
+
+
+## Interface
+
+Another way to achieve abstraction in Java, is with interfaces.
+
+An `interface` is a completely **abstract class** that is used to group related methods with empty bodies
+
+```java
+// interface
+interface Animal {
+    public void animalSound(); // interface method (does not have a body)
+    public void run(); // interface method (does not have a body)
+}
+```
+
+To access the interface methods, the interface must be "implemented" (kinda like inherited) by another class with the implements keyword (instead of extends). The body of the interface method is provided by the "implement" class: [Code](./src/module14/Interface.java)
+
+#### Note on Interface
+- Like abstract classes, interfaces cannot be used to create objects (in the example above, it is not possible to create an "Animal" object in the MyMainClass)
+- Interface methods do not have a body - the body is provided by the "implement" class
+- On implementation of an interface, you must override all of its methods
+- Interface methods are by default `abstract` and `public`
+- Interface attributes are by default `public`, `static` and `final`
+- An interface cannot contain a constructor (as it cannot be used to create objects)
+
+### Multiple Interfaces
+
+To implement multiple interfaces, separate them with a comma
+
+```java
+interface FirstInterface {
+    public void myMethod(); // interface method
+}
+
+interface SecondInterface {
+    public void myOtherMethod(); // interface method
+}
+
+class DemoClass implements FirstInterface, SecondInterface {
+    
+    public void myMethod() {
+        System.out.println("Some text..");
+    }
+    
+    public void myOtherMethod() {
+        System.out.println("Some other text...");
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        DemoClass myObj = new DemoClass();
+        myObj.myMethod();
+        myObj.myOtherMethod();
+    }
+}
+```
+
+
+
+
+## Anonymous Class
+
+An anonymous class is a class without a name. It is created and used at the same time.
+
+You often use anonymous classes to override methods of an existing class or interface, without writing a separate class file.
+
+```java
+// Normal class
+class Animal {
+    public void makeSound() {
+        System.out.println("Animal sound");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Anonymous class that overrides makeSound()
+        Animal myAnimal = new Animal() {
+            public void makeSound() {
+                System.out.println("Woof woof");
+            }
+        }; // semicolon is required to end the line of code that creates the object
+
+        myAnimal.makeSound();
+    }
+}
+```
+
+### Anonymous Class from an Interface
+
+You can also use an anonymous class to implement an interface on the fly
+
+```java
+// Interface
+interface Greeting {
+  void sayHello();
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Anonymous class that implements Greeting
+        Greeting greet = new Greeting() {
+            public void sayHello() {
+                System.out.println("Hello, World!");
+            }
+        };
+
+        greet.sayHello();
+    }
+}
+```
