@@ -53,8 +53,14 @@ This Repository only contains **Java OOP**.
 - [Abstraction](#abstraction)
 - [Interface](#interface)
     - [Multiple Interface](#multiple-interfaces)
+    - [Class vs Interface](#class-vs-interface)
 - [Anonymous Class](#anonymous-class)
     - [Anonymous Class from an Interface](#anonymous-class-from-an-interface)
+- [Enums](#enums)
+    - [Enum inside a Class](#enum-inside-a-class)
+    - [Loop through an Enum](#loop-through-an-enum)
+    - [Enum Constructor](#enum-constructor)
+    - [Class vs Enum](#class-vs-enum)
 
 
 
@@ -974,6 +980,21 @@ class Main {
 }
 ```
 
+### Class vs Interface
+
+| Aspect | Class | Interface |
+|------|-------|-----------|
+| Purpose | Used to define objects with state and behavior | Used to define a contract that classes must follow |
+| Keyword Used | `class` | `interface` |
+| Methods | Can have concrete and abstract methods | Methods are `public` and `abstract` by default (except `default` and `static`) |
+| Variables | Can have instance and static variables | Variables are `public static final` by default |
+| Inheritance | Can extend only one class | Can be implemented by multiple classes |
+| Multiple Inheritance | Not supported | Supported |
+| Object Creation | Objects can be created using `new` | Cannot create objects |
+| Constructors | Can have constructors | Cannot have constructors |
+| Access Modifiers | Can use all access modifiers | Methods are implicitly `public` |
+| Implementation | May or may not be fully implemented | Implementation must be provided by implementing class |
+
 
 
 
@@ -1028,3 +1049,104 @@ public class Main {
     }
 }
 ```
+
+
+
+
+## Enums
+
+An `enum` is a special "class" that represents a group of **constants** (unchangeable variables, like `final` variables)
+
+**Enum** is short for "enumerations", which means "specifically listed".
+
+To create an `enum`, use the `enum` keyword (instead of class or interface), and separate the constants with a comma. Note that they should be in uppercase letters
+
+```java
+enum Level {
+    LOW,
+    MEDIUM,
+    HIGH
+}
+```
+
+You can access `enum` constants with the **dot** syntax:
+
+```java
+Level myVar = Level.MEDIUM;
+```
+
+### Enum inside a Class
+
+You can also have an `enum` inside a class:
+
+```java
+public class Main {
+    
+    enum Level {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
+
+    public static void main(String[] args) {
+        Level myVar = Level.MEDIUM; 
+        System.out.println(myVar);
+    }
+}
+```
+
+### Loop Through an Enum
+
+The enum type has a `values()` method, which returns an array of all enum constants. This method is useful when you want to loop through the constants of an enum:
+
+```java
+for (Level myVar : Level.values()) {
+    System.out.println(myVar);
+}
+```
+
+### Enum Constructor
+
+An `enum` can also have a **constructor** just like a class.
+
+The constructor is called automatically when the constants are created. You cannot call it yourself.
+
+Here, each constant in the enum has a value (a string) that is set through the constructor
+
+```java
+enum Level {
+    
+    // Enum constants (each has its own description)
+    LOW("Low level"),
+    MEDIUM("Medium level"),
+    HIGH("High level");
+
+    // Field (variable) to store the description text
+    private String description;
+
+    // Constructor (runs once for each constant above)
+    private Level(String description) {
+        this.description = description;
+    }
+
+    // Getter method to read the description
+    public String getDescription() {
+        return description;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Level myVar = Level.MEDIUM; // Pick one enum constant
+        System.out.println(myVar.getDescription()); // Prints "Medium level"
+    }
+}
+```
+
+### Class vs Enum
+
+| Aspect | Class | Enum |
+|------|-------|------|
+| Constants / Members | Variables are not `public static final` by default and can be overridden | Enum constants are implicitly `public static final` and cannot be overridden |
+| Object Creation & Inheritance | Objects can be created using `new` and a class can extend another class | Objects cannot be created using `new` and enum cannot extend any class (but can implement interfaces) |
+
